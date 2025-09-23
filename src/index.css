@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+/* Colores personalizados extraídos del logo Bella Beauty real */
+:root {
+  --bella-gold: #d4af37;
+  --bella-gold-light: #f0d785;
+  --bella-gold-dark: #b8941f;
+  --bella-rose: #e8d5d1;          /* Color de fondo del logo */
+  --bella-rose-light: #f5f0ee;    /* Variante más clara */
+  --bella-rose-dark: #dcc6c0;     /* Variante más oscura */
+  --bella-cream: #fdfcfb;         /* Color casi blanco */
+}
+
+/* Tipografía elegante */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bella-rose-light);
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Animaciones suaves para elementos interactivos */
+* {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Scrollbar personalizada con colores del logo */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bella-rose);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bella-gold);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bella-gold-dark);
+}
+
+/* Efectos de hover para botones */
+.btn-bella {
+  background: linear-gradient(135deg, var(--bella-gold) 0%, var(--bella-gold-dark) 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.btn-bella:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+
+/* Animación para las pestañas del logo */
+@keyframes lash-wave {
+  0%, 100% { transform: rotate(0deg) scaleY(1); }
+  50% { transform: rotate(2deg) scaleY(1.1); }
+}
+
+/* Efectos de brillo sutil */
+.golden-glow {
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+/* Gradientes de fondo personalizados usando colores del logo */
+.bg-bella-gradient {
+  background: linear-gradient(135deg, var(--bella-rose) 0%, var(--bella-rose-dark) 50%, var(--bella-rose) 100%);
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, var(--bella-gold) 0%, var(--bella-gold-dark) 100%);
+}
+
+/* Clase para el fondo principal que coincide con el logo */
+.bg-bella-main {
+  background-color: var(--bella-rose);
+}
+
+.bg-bella-content {
+  background-color: var(--bella-rose-light);
+}
