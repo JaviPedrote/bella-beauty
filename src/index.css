@@ -23,6 +23,27 @@ h1, h2, h3 {
   font-family: 'Playfair Display', serif;
 }
 
+@theme{
+
+  /* colors */
+ /* 'brand-primary': '#B45309', // Un ámbar-marrón más profundo para el texto principal
+        'brand-secondary': '#FDD8B0', // Un tono más claro para fondos o bordes
+        'brand-accent': '#FFD700', // Un toque de dorado para resaltar
+        'brand-background': '#FCF6F0', // Fondo crema muy suave
+        'brand-text-light': '#6B4226', // Texto secundario */
+  --color-brand-primary: #B45309;
+  --color-brand-secondary: #FDD8B0;
+  --color-brand-accent: #FFD700;
+  --color-brand-background: #FCF6F0;
+  --color-brand-text-light: #6B4226;
+
+  /* fonts */
+  /*  serif: ['"Playfair Display"', 'serif'], // O tu fuente serif actual
+        sans: ['"Lato"', 'sans-serif'], // O tu fuente sans-serif actual */
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Lato', sans-serif;
+}
+
 /* Animaciones suaves para elementos interactivos */
 * {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -91,4 +112,31 @@ h1, h2, h3 {
 
 .bg-bella-content {
   background-color: var(--bella-rose-light);
+}
+
+/* Layout global */
+html, body, #root {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+/* Contenedor principal para centrar contenido */
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Mejora de accesibilidad: estados de foco visibles */
+:focus {
+  outline: 2px dashed var(--bella-gold);
+  outline-offset: 2px;
+}
+
+/* Ajustes finos en botones */
+.btn-bella:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
 }

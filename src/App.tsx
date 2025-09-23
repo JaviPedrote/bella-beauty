@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router'
 import { Home } from './pages/Home.tsx'
 import { Servicios } from './pages/Servicios.tsx'
 import { NavBar } from './pages/NavBar.tsx'
+import { Galeria } from './pages/Galeria.tsx'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<NavBar />}>
           <Route index element={<Home />} />
           <Route path="servicios" element={<Servicios />} />
+          <Route path="galeria" element={<Galeria />} />
         </Route>
       </Routes>
     </div>

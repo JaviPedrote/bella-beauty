@@ -1,138 +1,106 @@
-import { Outlet, Link, useLocation } from 'react-router-dom'
+import { Outlet, Link, useLocation } from 'react-router-dom';
 
-export const NavBar = () => {
+// --- Iconos Outline (Estado inactivo) ---
+const HomeIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+);
+const ServicesIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path><path d="M19.5 12.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"></path><path d="M4.5 12.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"></path><path d="M12 5.5a1 1 0 1 0-2 0 1 1 0 0 0 2 0Z"></path><path d="M12 19.5a1 1 0 1 0-2 0 1 1 0 0 0 2 0Z"></path>
+    </svg>
+);
+const GalleryIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect width="7" height="7" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect><rect width="7" height="7" x="3" y="14" rx="1"></rect>
+    </svg>
+);
+// const AppointmentsIcon = () => (
+//     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+//         <path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="m9 16 2 2 4-4"></path>
+//     </svg>
+// );
+// const PricesIcon = () => (
+//     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+//         <path d="M12 2H2v10l9.29 9.29a2.82 2.82 0 0 0 4 0l6-6a2.82 2.82 0 0 0 0-4L12 2Z"></path><path d="M7 7h.01"></path>
+//     </svg>
+// );
+
+// --- Iconos Filled (Estado activo) ---
+const HomeIconFilled = () => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>);
+const ServicesIconFilled = () => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"></path><circle cx="12" cy="12" r="3"></circle></svg>);
+const GalleryIconFilled = () => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4 2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"></path></svg>);
+const AppointmentsIconFilled = () => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"></path></svg>);
+const PricesIconFilled = () => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58s1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41s-.22-1.05-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"></path></svg>);
+
+
+// --- Componente NavLink con animación ---
+const NavLink = ({ to, icon, activeIcon, label }) => {
     const location = useLocation();
+    const isActive = location.pathname === to;
 
     return (
-        <div className="min-h-screen" style={{
-            backgroundColor: '#E2CEC7',
-            margin: '0',
-            padding: '0',
-            border: 'none',
-            outline: 'none'
-        }}>
-            {/* Header */}
-            <header className="relative overflow-hidden" style={{
-                backgroundColor: '#E2CEC7',
-                margin: '0',
-                padding: '0',
-                border: 'none'
-            }}>
-                <div className="absolute inset-0 opacity-5">
-                    <div className="absolute top-4 left-4 w-20 h-20 rounded-full border border-amber-300"></div>
-                    <div className="absolute top-12 right-8 w-16 h-16 rounded-full border border-amber-200"></div>
-                    <div className="absolute bottom-8 left-1/3 w-12 h-12 rounded-full border border-amber-300"></div>
+        <Link
+            to={to}
+            className={`flex items-center justify-center gap-2.5 transition-all duration-300 ease-in-out h-12 rounded-full ${
+                isActive 
+                ? 'w-32 bg-amber-800 text-white shadow-lg' 
+                : 'w-12 text-gray-500 hover:bg-amber-100/60'
+            }`}
+        >
+            <div className="w-6 h-6 flex-shrink-0">
+                {isActive ? activeIcon : icon}
+            </div>
+            <span className={`text-sm font-medium whitespace-nowrap overflow-hidden transition-opacity duration-200 ${isActive ? 'opacity-100' : 'opacity-0 w-0'}`}>
+                {label}
+            </span>
+        </Link>
+    );
+};
+
+// --- Componente principal NavBar ---
+export const NavBar = () => {
+    return (
+        <div className="min-h-screen flex flex-col bg-[#FBF7F4]">
+            
+            {/* Encabezado con logo y nombre, posicionado a la izquierda */}
+            <header className="w-full py-3 px-4 sm:px-6 sticky top-0 z-10 bg-[#FBF7F4]/80 backdrop-blur-xl" style={{ borderBottom: '1px solid #EADED7' }}>
+                <div className="flex items-center justify-center gap-3">
+                    <img
+                        src="/Logo.png"
+                        alt="Logo de Bella Beauty"
+                        className="max-h-60 items-center justify-center"
+                        onError={(e) => {
+                            const target = e.currentTarget;
+                            target.style.display = 'none';
+                            const fallback = document.createElement('div');
+                            fallback.textContent = 'BB';
+                            fallback.className = 'flex items-center justify-center h-12 w-12 rounded-full bg-amber-200 text-xl font-serif text-amber-800';
+                            target.parentNode?.insertBefore(fallback, target);
+                        }}
+                    />
                 </div>
-
-
-                {/* Fondo que cubre toda la zona */}
-
-                <img
-                    src="/Logo-header.png"
-                    alt="Bella Beauty - María Rodríguez"
-                    className="max-h-80 w-auto object-contain"
-                    style={{
-                        backgroundColor: 'transparent',
-                        display: 'block',
-                        border: 'none',
-                        outline: 'none',
-                        maxWidth: '100%'
-                    }}
-                    onError={(e) => {
-                        // Fallback si la imagen no se encuentra
-                        e.currentTarget.style.display = 'none';
-                        const fallback = e.currentTarget.nextElementSibling as HTMLElement;
-                        if (fallback) {
-                            fallback.style.display = 'block';
-                        }
-                    }}
-                />
-
             </header>
 
-            {/* Content */}
-            <main className="flex-1 px-4 py-6" style={{ backgroundColor: 'white', marginTop: '0', paddingTop: '0' }}>
+            {/* Área de contenido principal */}
+            <main className="flex-1 bg-white px-4 sm:px-6 py-6">
                 <Outlet />
+                {/* Espaciador para evitar que el contenido final quede oculto por la barra de navegación */}
+                <div className="h-18"></div>
             </main>
 
-            {/* Bottom Navigation */}
-            <nav className="fixed bottom-0 left-0 right-0 backdrop-blur-md" style={{
-                backgroundColor: '#E2CEC7',
-                borderTop: 'none'
-            }}>
-                <div className="flex justify-around items-center px-4 py-3">
-                    <Link
-                        to="/"
-                        className={`flex flex-col items-center py-2 px-3 transition-all duration-300 rounded-lg ${location.pathname === '/'
-                            ? 'text-amber-600 transform scale-110'
-                            : 'text-amber-700 opacity-70 hover:opacity-100 hover:scale-105'
-                            }`}
-                        style={{
-                            backgroundColor: location.pathname === '/' ? 'rgba(212, 175, 55, 0.1)' : 'transparent'
-                        }}
-                    >
-                        <div className={`w-6 h-6 mb-1 transition-all duration-300 ${location.pathname === '/' ? 'drop-shadow-md' : ''
-                            }`}>
-                            <svg fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-                            </svg>
-                        </div>
-                        <span className="text-xs font-medium tracking-wide">Inicio</span>
-                        {location.pathname === '/' && (
-                            <div className="w-4 h-0.5 bg-amber-600 rounded-full mt-1"></div>
-                        )}
-                    </Link>
-
-                    <Link
-                        to="/servicios"
-                        className={`flex flex-col items-center py-2 px-3 transition-all duration-300 rounded-lg ${location.pathname === '/servicios'
-                            ? 'text-amber-600 transform scale-110'
-                            : 'text-amber-700 opacity-70 hover:opacity-100 hover:scale-105'
-                            }`}
-                        style={{
-                            backgroundColor: location.pathname === '/servicios' ? 'rgba(212, 175, 55, 0.1)' : 'transparent'
-                        }}
-                    >
-                        <div className={`w-6 h-6 mb-1 transition-all duration-300 ${location.pathname === '/servicios' ? 'drop-shadow-md' : ''
-                            }`}>
-                            <svg fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
-                            </svg>
-                        </div>
-                        <span className="text-xs font-medium tracking-wide">Servicios</span>
-                        {location.pathname === '/servicios' && (
-                            <div className="w-4 h-0.5 bg-amber-600 rounded-full mt-1"></div>
-                        )}
-                    </Link>
-
-                    <div className="flex flex-col items-center py-2 px-3 text-amber-700 opacity-70 hover:opacity-100 hover:scale-105 transition-all duration-300 rounded-lg cursor-pointer hover:bg-amber-100 hover:bg-opacity-20">
-                        <div className="w-6 h-6 mb-1">
-                            <svg fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
-                            </svg>
-                        </div>
-                        <span className="text-xs font-medium tracking-wide">Galería</span>
-                    </div>
-
-                    <div className="flex flex-col items-center py-2 px-3 text-amber-700 opacity-70 hover:opacity-100 hover:scale-105 transition-all duration-300 rounded-lg cursor-pointer hover:bg-amber-100 hover:bg-opacity-20">
-                        <div className="w-6 h-6 mb-1">
-                            <svg fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
-                            </svg>
-                        </div>
-                        <span className="text-xs font-medium tracking-wide">Citas</span>
-                    </div>
-
-                    <div className="flex flex-col items-center py-2 px-3 text-amber-700 opacity-70 hover:opacity-100 hover:scale-105 transition-all duration-300 rounded-lg cursor-pointer hover:bg-amber-100 hover:bg-opacity-20">
-                        <div className="w-6 h-6 mb-1">
-                            <svg fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" />
-                            </svg>
-                        </div>
-                        <span className="text-xs font-medium tracking-wide">Precios</span>
-                    </div>
+            {/* Menú de navegación flotante y animado */}
+            <nav className="fixed bottom-0 w-full left-1/2 -translate-x-1/2 z-20">
+                <div className="flex place-content-between items-center gap-2 p-2 bg-white/80 backdrop-blur-xl shadow-2xl shadow-black/10 ring-1 ring-black/5">
+                    <NavLink to="/" icon={<HomeIcon />} activeIcon={<HomeIconFilled />} label="Inicio" />
+                    <NavLink to="/servicios" icon={<ServicesIcon />} activeIcon={<ServicesIconFilled />} label="Servicios" />
+                    <NavLink to="/galeria" icon={<GalleryIcon />} activeIcon={<GalleryIconFilled />} label="Galería" />
+                    {/* <NavLink to="/citas" icon={<AppointmentsIcon />} activeIcon={<AppointmentsIconFilled />} label="Citas" />
+                    <NavLink to="/precios" icon={<PricesIcon />} activeIcon={<PricesIconFilled />} label="Precios" /> */}
                 </div>
             </nav>
         </div>
-    )
+    );
 }
+
