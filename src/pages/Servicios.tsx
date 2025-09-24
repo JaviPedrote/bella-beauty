@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 // --- Iconos para las categorías de servicios ---
 const EyeIcon = ({ className }: { className?: string }) => (
@@ -66,7 +66,7 @@ const serviceCategories = [
 
 
 // --- Componente de Acordeón para una categoría de servicio ---
-const ServiceAccordion = ({ category, icon, gradient, description, services }: { category: string; icon: React.ReactNode; gradient: string; description: string; services: Array<{ name: string; description: string; duration: string; price: string }> }) => {
+const ServiceAccordion = ({ category, icon, gradient, description, services, onReserve }: { category: string; icon: React.ReactNode; gradient: string; description: string; services: Array<{ name: string; description: string; duration: string; price: string }>; onReserve?: () => void }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -121,7 +121,7 @@ const ServiceAccordion = ({ category, icon, gradient, description, services }: {
                         
                         {/* Botón de reserva para la categoría */}
                         <div className="mt-6 sm:mt-8 text-center">
-                            <button className="bg-gradient-to-r from-amber-600 to-amber-700 text-white px-6 py-2.5 sm:px-8 sm:py-3 rounded-full font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-out">
+                            <button onClick={() => onReserve?.()} className="bg-gradient-to-r from-amber-600 to-amber-700 text-white px-6 py-2.5 sm:px-8 sm:py-3 rounded-full font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-out">
                                 Reservar {category}
                             </button>
                         </div>
@@ -135,6 +135,35 @@ const ServiceAccordion = ({ category, icon, gradient, description, services }: {
 
 // --- Componente principal de la página de Servicios ---
 export const Servicios = () => {
+    // Modal telefono
+    const [openPhoneModal, setOpenPhoneModal] = useState(false);
+    const phoneNumber = '+34 600 000 000';
+    const modalCloseRef = useRef<HTMLButtonElement | null>(null);
+
+    const copyNumber = async () => {
+        try {
+            await navigator.clipboard.writeText(phoneNumber);
+            // pequeño feedback
+            alert('Número copiado al portapapeles!');
+        } catch (err) {
+            console.error('No se pudo copiar el número', err);
+        }
+    }
+
+    useEffect(() => {
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setOpenPhoneModal(false);
+        }
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, []);
+
+    useEffect(() => {
+        if (openPhoneModal) {
+            setTimeout(() => modalCloseRef.current?.focus(), 60);
+        }
+    }, [openPhoneModal]);
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-amber-100/30">
             {/* Hero Section */}
@@ -150,14 +179,12 @@ export const Servicios = () => {
                 {/* Contenido principal del hero */}
                 <div className="relative max-w-7xl mx-auto">
                     <div className="text-center space-y-6 sm:space-y-8">
-                        {/* Título principal */}
-                        <div className="space-y-3 items-center place-content-between w-full sm:space-y-4">
-                            <h1 className="flex text-center font-bold border-l-2 border-amber-600 pl-2 text-3xl sm:text-5xl lg:text-6xl font-serif text-amber-900 leading-tight">
-                                Nuestros
-                                <div className="block ml-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-800">
-                                    Servicios
-                                </div>
+                        <div className="space-y-3 sm:space-y-4 ">
+                            <h1 className=" flex gap-2 items-center justify-center text-3xl sm:text-5xl lg:text-6xl font-serif text-amber-900 leading-tight">
+                                Nuestros <div className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-800">Servicios</div>
+                               
                             </h1>
+                            <div className="w-16 h-1 sm:w-24 bg-gradient-to-r from-amber-400 to-amber-600 mx-auto rounded-full"></div>
                         </div>
                         
                         {/* Descripción */}
@@ -168,7 +195,7 @@ export const Servicios = () => {
 
                         {/* CTA Buttons */}
                         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center pt-2 sm:pt-4">
-                            <button className="group bg-gradient-to-r from-amber-600 to-amber-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-out">
+                            <button onClick={() => setOpenPhoneModal(true)} className="group bg-gradient-to-r from-amber-600 to-amber-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-out">
                                 <span className="flex items-center gap-2">
                                     <PhoneIcon className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-pulse" />
                                     Reservar Cita
@@ -210,12 +237,42 @@ export const Servicios = () => {
                         <p className="text-sm sm:text-base text-amber-800/80 mb-4 sm:mb-6 max-w-lg mx-auto px-2">
                             Nuestro equipo de profesionales está aquí para ayudarte a conseguir el look que siempre has deseado.
                         </p>
-                        <button className="bg-gradient-to-r from-amber-600 to-amber-700 text-white px-6 py-3 sm:px-10 sm:py-4 rounded-full font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-out">
+                        <button onClick={() => setOpenPhoneModal(true)} className="bg-gradient-to-r from-amber-600 to-amber-700 text-white px-6 py-3 sm:px-10 sm:py-4 rounded-full font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-out">
                             Contactar Ahora
                         </button>
                     </div>
                 </div>
             </section>
+
+            {/* Modal de llamada (compartido con Home) */}
+            {openPhoneModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-black/40" onClick={() => setOpenPhoneModal(false)} aria-hidden></div>
+                    <div role="dialog" aria-modal="true" aria-labelledby="modal-title" className="relative bg-white rounded-2xl shadow-xl max-w-sm w-full p-6">
+                        <h3 id="modal-title" className="text-lg font-semibold text-amber-900">Reservar Cita</h3>
+                        <p className="mt-2 text-sm text-gray-600">Llámanos y reserva tu cita.</p>
+
+                        <div className="mt-4 flex flex-col gap-4 py-4 items-center justify-between p-3 border-t border-b border-gray-100">
+                            <div>
+                                <p className="text-sm text-gray-500">Teléfono</p>
+                                <p className="text-amber-900 font-medium text-xl">{phoneNumber}</p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <a href={`tel:${phoneNumber.replace(/\s+/g, '')}`} className="inline-flex text-white items-center px-4 py-2 bg-amber-800 rounded-full shadow-lg hover:bg-amber-900 transition">
+                                    Llamar
+                                </a>
+                                <button onClick={copyNumber} className="inline-flex items-center px-4 py-2 bg-amber-50 text-amber-900 rounded-full shadow-lg border border-amber-100 hover:bg-amber-100 transition">
+                                    Copiar
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="mt-4 text-right">
+                            <button ref={modalCloseRef} onClick={() => setOpenPhoneModal(false)} className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

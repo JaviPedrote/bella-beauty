@@ -1,3 +1,5 @@
+import { useState, useRef, useEffect } from 'react'
+
 // --- Iconos ---
 const PhoneIcon = ({ className }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -73,6 +75,34 @@ const ComparisonCard = ({ title, category, before_placeholder, after_placeholder
 
 // --- Componente principal de la página de Galería ---
 export const Galeria = () => {
+    // Modal para teléfono (mismo comportamiento que Home/Servicios)
+    const [openPhoneModal, setOpenPhoneModal] = useState(false)
+    const phoneNumber = '+34 600 000 000'
+    const modalCloseRef = useRef<HTMLButtonElement | null>(null)
+
+    const copyNumber = async () => {
+        try {
+            await navigator.clipboard.writeText(phoneNumber)
+            alert('Número copiado al portapapeles!')
+        } catch (err) {
+            console.error('No se pudo copiar el número', err)
+        }
+    }
+
+    useEffect(() => {
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setOpenPhoneModal(false)
+        }
+        window.addEventListener('keydown', onKey)
+        return () => window.removeEventListener('keydown', onKey)
+    }, [])
+
+    useEffect(() => {
+        if (openPhoneModal) {
+            setTimeout(() => modalCloseRef.current?.focus(), 60)
+        }
+    }, [openPhoneModal])
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-amber-100/30">
             {/* Hero Section */}
@@ -107,7 +137,7 @@ export const Galeria = () => {
 
                         {/* CTA Buttons */}
                         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center pt-2 sm:pt-4">
-                            <button className="group bg-gradient-to-r from-amber-600 to-amber-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-out">
+                            <button onClick={() => setOpenPhoneModal(true)} className="group bg-gradient-to-r from-amber-600 to-amber-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-out">
                                 <span className="flex items-center gap-2">
                                     <PhoneIcon className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-pulse" />
                                     Reservar Cita
@@ -117,6 +147,42 @@ export const Galeria = () => {
                                 Ver Más Trabajos
                             </button>
                         </div>
+
+                        {/* Modal de llamada */}
+                        {openPhoneModal && (
+                            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                                <div className="absolute inset-0 bg-black/40" onClick={() => setOpenPhoneModal(false)} aria-hidden></div>
+                                <div role="dialog" aria-modal="true" aria-labelledby="modal-title" className="relative bg-white rounded-2xl shadow-xl max-w-sm w-full p-6">
+                                    <h3 id="modal-title" className="text-lg font-semibold text-amber-900">Reservar Cita</h3>
+                                    <p className="mt-2 text-sm text-gray-600">Llámanos y reserva tu cita.</p>
+
+                                    <div className="mt-4 flex flex-col gap-4 py-4 items-center justify-between p-3 border-t border-b border-gray-100">
+                                        <div>
+                                            <p className="text-sm text-gray-500">Teléfono</p>
+                                            <p className="text-amber-900 font-medium text-xl">{phoneNumber}</p>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <a href={`tel:${phoneNumber.replace(/\s+/g, '')}`} className="inline-flex text-white items-center px-4 py-2 bg-amber-700 rounded-full shadow-lg hover:bg-amber-700/90 transition">
+                                                Llamar
+                                            </a>
+                                            <button onClick={copyNumber} className="inline-flex items-center px-4 py-2 bg-amber-100 text-amber-900 rounded-full shadow-lg border border-amber-100 hover:bg-amber-100/80 transition">
+                                                Copiar
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-4 text-right">
+                                        <button
+                                            ref={modalCloseRef}
+                                            onClick={() => setOpenPhoneModal(false)}
+                                            className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-md"
+                                        >
+                                            Cerrar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>
@@ -150,7 +216,7 @@ export const Galeria = () => {
                             Permítenos crear una transformación igual de increíble para ti. 
                             Tu próximo resultado favorito te está esperando.
                         </p>
-                        <button className="bg-gradient-to-r from-amber-600 to-amber-700 text-white px-3 py-3 sm:px-10 sm:py-4 rounded-full font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-out">
+                        <button onClick={() => setOpenPhoneModal(true)} className="bg-gradient-to-r from-amber-600 to-amber-700 text-white px-3 py-3 sm:px-10 sm:py-4 rounded-full font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-out">
                             Reservar mi Transformación
                         </button>
                     </div>
