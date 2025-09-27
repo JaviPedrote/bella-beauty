@@ -5,18 +5,18 @@ import { PhoneModal } from '../components/PhoneModal';
 // Es buena práctica tener esto fuera del componente o en un archivo de datos separado
 // para facilitar su mantenimiento.
 const galleryImages = [
-  { id: 1, src: '/public/cejasProfesional.webp', alt: 'Diseño de Cejas Profesional' },
-  { id: 2, src: '/public/extensionPestaña.webp', alt: 'Extensiones de Pestañas Volumen' },
-  { id: 3, src: '/public/Microblading.webp', alt: 'Microblading de Cejas' },
-  { id: 4, src: '/public/LiftingPestañasTinte.webp', alt: 'Lifting de Pestañas y Tinte' },
-  { id: 5, src: '/public/LaminadoCejas.webp', alt: 'Laminado de Cejas' },
-  { id: 6, src: '/public/ExtensionClasica.webp', alt: 'Extensiones de Pestañas Clásicas' },
-  { id: 7, src: '/public/DepilacionCejas.webp', alt: 'Depilación y Tinte de Cejas' },
-  { id: 8, src: '/public/NaturalesRealzadas.webp', alt: 'Pestañas Naturales Realzadas' },
+  { id: 1, src: '/cejasProfesional.webp', alt: 'Diseño de Cejas Profesional' },
+  { id: 2, src: '/extensionPestaña.webp', alt: 'Extensiones de Pestañas Volumen' },
+  { id: 3, src: '/Microblading.webp', alt: 'Microblading de Cejas' },
+  { id: 4, src: '/LiftingPestañasTinte.webp', alt: 'Lifting de Pestañas y Tinte' },
+  { id: 5, src: '/LaminadoCejas.webp', alt: 'Laminado de Cejas' },
+  { id: 6, src: '/ExtensionClasica.webp', alt: 'Extensiones de Pestañas Clásicas' },
+  { id: 7, src: '/DepilacionCejas.webp', alt: 'Depilación y Tinte de Cejas' },
+  { id: 8, src: '/NaturalesRealzadas.webp', alt: 'Pestañas Naturales Realzadas' },
 ];
 
 export const Galeria = () => {
-  // Usamos el hook personalizado para manejar la lógica del modal
+  // Usamos el hook personalizado para manejar la lógica del modal  
   const { isModalOpen, openModal, closeModal, modalCloseRef } = usePhoneModal();
 
   return (
