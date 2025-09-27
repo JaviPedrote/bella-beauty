@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 
 export const usePhoneModal = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const closeButtonRef =  useRef<HTMLButtonElement>(null); 
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

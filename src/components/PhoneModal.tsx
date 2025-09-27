@@ -5,7 +5,7 @@ import React from 'react'; // Necesario para componentes de React
 interface PhoneModalProps {
   isOpen: boolean;
   onClose: () => void;
-  closeRef: React.RefObject<HTMLButtonElement>;
+  closeRef: React.RefObject<HTMLButtonElement | null>;
 }
 
 // El componente en sí. Recibe las props y las utiliza.
