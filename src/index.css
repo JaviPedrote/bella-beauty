@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 @import "tailwindcss";
+/* Tipografía elegante */
 
 /* Colores personalizados extraídos del logo Bella Beauty real */
 :root {
@@ -11,8 +13,7 @@
   --bella-cream: #fdfcfb;         /* Color casi blanco */
 }
 
-/* Tipografía elegante */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
 
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;

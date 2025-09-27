@@ -1,278 +1,121 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useEffect } from 'react';
+import { usePhoneModal } from '../hooks/useOpenModal';
+import { PhoneModal } from '../components/PhoneModal';
 
-// --- Iconos para las categorías de servicios ---
-const EyeIcon = ({ className }: { className?: string }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-        <circle cx="12" cy="12" r="3"></circle>
-    </svg>
-);
-
-// SparklesIcon eliminado (no usado)
-
-const EyebrowIcon = ({ className }: { className?: string }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-        <path d="M18 10c-2 0-4-1-4-3s2-3 4-3 4 1 4 3-2 3-4 3Z"></path>
-        <path d="M6 10c-2 0-4-1-4-3s2-3 4-3 4 1 4 3-2 3-4 3Z"></path>
-        <path d="M14 18s-2-2-4-2-4 2-4 2"></path>
-    </svg>
-);
-
-const PhoneIcon = ({ className }: { className?: string }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-    </svg>
-);
-
-const ClockIcon = ({ className }: { className?: string }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-        <circle cx="12" cy="12" r="10"></circle>
-        <polyline points="12 6 12 12 16 14"></polyline>
-    </svg>
-);
-const ChevronDownIcon = ({ className }: { className?: string }) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="6 9 12 15 18 9"></polyline></svg>);
-
-
-// --- Datos de los servicios (Cejas y Pestañas) ---
-const serviceCategories = [
+// Datos de los servicios. Tenerlos en un array hace que sea muy fácil añadir o quitar servicios en el futuro.
+const serviciosData = [
     {
-        category: "Cejas",
-        icon: <EyebrowIcon className="w-8 h-8" />,
-        gradient: "from-orange-400 to-amber-500",
-        description: "Tratamientos especializados para diseñar, dar color y mejorar la textura de tus cejas.",
-        services: [
-            { name: "Diseño de cejas personalizado", description: "Diseño adaptado a tus rasgos faciales.", duration: "30-45 min", price: "30€" },
-            { name: "Microblading", description: "Relleno y forma natural pelo a pelo.", duration: "90-150 min", price: "Desde 180€" },
-            { name: "Tinte de cejas", description: "Color, intensidad y homogeneidad.", duration: "20-30 min", price: "18€" },
-            { name: "Laminación / Alisado de cejas", description: "Definir y peinar los vellos para un acabado pulido.", duration: "45-60 min", price: "40€" },
-            { name: "Depilación con hilo o pinza", description: "Dar forma y limpiar con precisión.", duration: "20-30 min", price: "20€" },
-            { name: "Extensiones de cejas", description: "Aumentar volumen y densidad de forma natural.", duration: "60-90 min", price: "Desde 50€" }
+        category: 'Tratamientos de Cejas',
+        description: 'Técnicas especializadas para definir, dar forma y realzar tus cejas, creando el marco perfecto para tu mirada.',
+        items: [
+            { name: 'Diseño Personalizado de Cejas', price: '20€', details: 'Análisis de visagismo, depilación con hilo/pinzas y definición.' },
+            { name: 'Microblading', price: '180€', details: 'Técnica pelo a pelo para un resultado hiperrealista y natural.' },
+            { name: 'Microshading', price: '200€', details: 'Efecto sombreado o maquillaje para cejas más densas y definidas.' },
+            { name: 'Laminado de Cejas', price: '45€', details: 'Alisa y fija el vello para unas cejas peinadas y con más volumen.' },
+            { name: 'Tinte de Cejas con Henna', price: '25€', details: 'Coloración natural para dar intensidad y rellenar pequeños huecos.' }
         ]
     },
     {
-        category: "Pestañas",
-        icon: <EyeIcon className="w-8 h-8" />,
-        gradient: "from-amber-400 to-amber-500",
-        description: "Servicios para realzar la mirada: volumen, rizo y color.",
-        services: [
-            { name: "Extensiones de pestañas", description: "Añade longitud y volumen con técnicas adaptadas a tu ojo.", duration: "2-3 horas", price: "Desde 45€" },
-            { name: "Lifting / Permanente de pestañas", description: "Riza y levanta las pestañas naturales para una mirada abierta.", duration: "45-60 min", price: "35€" },
-            { name: "Tinte de pestañas", description: "Oscurece las pestañas sin necesidad de máscara.", duration: "20-30 min", price: "20€" },
-            { name: "Retirada de extensiones", description: "Eliminación segura de extensiones anteriores.", duration: "20-30 min", price: "20€" },
-            { name: "Diseño y cuidado de la mirada", description: "Tratamientos complementarios para intensificar la mirada de forma natural.", duration: "30-45 min", price: "30€" }
+        category: 'Tratamientos de Pestañas',
+        description: 'Soluciones para conseguir unas pestañas más largas, curvadas y con volumen, para una mirada abierta e impactante.',
+        items: [
+            { name: 'Extensiones de Pestañas Clásicas', price: '60€', details: 'Técnica pelo a pelo para un efecto de "rimel" natural.' },
+            { name: 'Extensiones de Pestañas Volumen Ruso', price: '80€', details: 'Abanicos de extensiones para un volumen espectacular y denso.' },
+            { name: 'Lifting de Pestañas + Tinte', price: '50€', details: 'Eleva y curva tus pestañas naturales desde la raíz. Incluye tinte.' },
+            { name: 'Tinte de Pestañas', price: '15€', details: 'Oscurece tus pestañas para dar profundidad a la mirada sin maquillaje.' }
         ]
     }
 ];
 
+export const Servicios = () => {
 
-// --- Componente de Acordeón para una categoría de servicio ---
-const ServiceAccordion = ({ category, icon, gradient, description, services, onReserve }: { category: string; icon: React.ReactNode; gradient: string; description: string; services: Array<{ name: string; description: string; duration: string; price: string }>; onReserve?: () => void }) => {
-    const [isOpen, setIsOpen] = useState(false);
+     const { isModalOpen, openModal, closeModal, modalCloseRef } = usePhoneModal();
+    
+
+    useEffect(() => {
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') openModal();
+        };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [openModal]);
+
+    useEffect(() => {
+        if (isModalOpen) {
+            setTimeout(() => modalCloseRef.current?.focus(), 60);
+        }
+    }, [isModalOpen, modalCloseRef]);
 
     return (
-        <div className="bg-white/70 backdrop-blur-sm border border-amber-200/50 rounded-2xl sm:rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 ease-out hover:scale-[1.01] sm:hover:scale-[1.02]">
-            {/* --- Cabecera del acordeón (botón) --- */}
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="w-full flex items-center justify-between p-4 sm:p-6 lg:p-8 text-left group"
-            >
-                <div className="flex items-center gap-3 sm:gap-4 lg:gap-6">
-                    <div className={`flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center bg-gradient-to-br ${gradient} text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                        {icon}
-                    </div>
-                    <div>
-                        <h3 className="text-lg sm:text-xl lg:text-2xl font-serif text-amber-900 group-hover:text-amber-700 transition-colors duration-300">{category}</h3>
-                        <p className="text-xs sm:text-sm text-amber-800/70 mt-1 hidden sm:block">Toca para explorar nuestros servicios</p>
-                    </div>
-                </div>
-                <ChevronDownIcon className={`w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-amber-700 transition-all duration-300 group-hover:text-amber-600 ${isOpen ? 'transform rotate-180' : ''}`} />
-            </button>
-            
-            {/* --- Contenido desplegable --- */}
-            <div className={`transition-all duration-500 ease-in-out overflow-hidden ${isOpen ? 'max-h-full opacity-100' : 'max-h-0 opacity-0'}`}>
-                <div className="px-4 pb-4 pt-0 sm:px-6 sm:pb-6 lg:px-8 lg:pb-8">
-                    {/* Separador visual */}
-                    <div className="w-full h-px bg-gradient-to-r from-transparent via-amber-200 to-transparent mb-4 sm:mb-6"></div>
-                    
-                    <div className="bg-gradient-to-br from-amber-50/80 to-white/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-amber-100/50">
-                        <p className="text-amber-800/90 mb-6 sm:mb-8 text-sm sm:text-base lg:text-lg leading-relaxed border-l-4 border-amber-300 pl-4 sm:pl-6 italic">
-                            {description}
-                        </p>
-                        
-                        <div className="grid gap-4 sm:gap-6 lg:grid-cols-2">
-                            {services.map((service, index) => (
-                                <div key={index} className="bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-lg sm:rounded-xl border border-amber-200/30 hover:shadow-md transition-all duration-300 hover:scale-[1.02] sm:hover:scale-105">
-                                    <div className="flex items-start justify-between mb-2 sm:mb-3">
-                                        <h4 className="font-semibold text-amber-900 text-base sm:text-lg pr-2">{service.name}</h4>
-                                        <span className="bg-gradient-to-r from-amber-100 to-amber-200 text-amber-800 px-2 py-1 sm:px-3 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap">
-                                            {service.price}
-                                        </span>
+        // CAMBIO RADICAL: Asumo que el color por defecto "text-brand-primary" está causando el problema.
+        // Lo elimino de aquí y aplico colores explícitos en cada elemento.
+        <div className="space-y-12 py-4">
+
+            {/* --- Cabecera de la Página --- */}
+            <header className="text-center px-4">
+                {/* Usamos text-black para asegurar máxima visibilidad */}
+                <h1 className="text-4xl sm:text-5xl font-serif text-black">
+                    Nuestros Servicios
+                </h1>
+                {/* Usamos text-black para el texto descriptivo */}
+                <p className="mt-4 max-w-2xl mx-auto text-black">
+                    Descubre todos nuestros tratamientos diseñados para realzar tu belleza natural.
+                    Nos dedicamos a ofrecer resultados impecables con una atención personalizada.
+                </p>
+            </header>
+
+            {/* --- Lista de Servicios --- */}
+            <main className="max-w-4xl mx-auto space-y-12 px-4 sm:px-6 lg:px-8">
+                {serviciosData.map((category) => (
+                    <section key={category.category} aria-labelledby={category.category.replace(/\s+/g, '-')}>
+                        <div className="text-center mb-8">
+                            {/* Usamos text-black para los títulos de categoría */}
+                            <h2 id={category.category.replace(/\s+/g, '-')} className="text-3xl font-serif text-black relative inline-block pb-2 after:block after:absolute after:bottom-0 after:left-1/4 after:w-1/2 after:h-1 after:bg-brand-accent after:rounded-full">
+                                {category.category}
+                            </h2>
+                            {/* Usamos text-black para la descripción de categoría */}
+                            <p className="mt-3 text-black">{category.description}</p>
+                        </div>
+
+                        <div className="space-y-6">
+                            {category.items.map((service) => (
+                                <div key={service.name} className="bg-white p-6 rounded-2xl shadow-lg border border-brand-secondary/50 transform transition-transform hover:scale-[1.02] duration-300 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                                    <div>
+                                        {/* Usamos text-black para los nombres de los servicios */}
+                                        <h3 className="text-lg font-semibold text-black">{service.name}</h3>
+                                        {/* Usamos text-black para los detalles de los servicios */}
+                                        <p className="text-sm text-black mt-1">{service.details}</p>
                                     </div>
-                                    <p className="text-amber-800/70 mb-3 sm:mb-4 leading-relaxed text-sm sm:text-base">{service.description}</p>
-                                    <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-amber-700">
-                                        <span className="flex items-center gap-1 sm:gap-2 bg-amber-50 px-2 py-1 sm:px-3 rounded-full">
-                                            <ClockIcon className="w-3 h-3 sm:w-4 sm:h-4" />
-                                            {service.duration}
-                                        </span>
+                                    {/* Aquí mantenemos 'text-brand-primary' para el precio. Si 'brand-primary' es un color claro, cámbialo a 'text-black' */}
+                                    <div className="text-lg font-bold text-brand-highlight whitespace-nowrap bg-brand-secondary/50 px-4 py-2 rounded-full">
+                                        {service.price}
                                     </div>
                                 </div>
                             ))}
                         </div>
-                        
-                        {/* Botón de reserva para la categoría */}
-                        <div className="mt-6 sm:mt-8 text-center">
-                            <button onClick={() => onReserve?.()} className="bg-gradient-to-r from-amber-600 to-amber-700 text-white px-6 py-2.5 sm:px-8 sm:py-3 rounded-full font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-out">
-                                Reservar {category}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
+                    </section>
+                ))}
+            </main>
 
-
-// --- Componente principal de la página de Servicios ---
-export const Servicios = () => {
-    // Modal telefono
-    const [openPhoneModal, setOpenPhoneModal] = useState(false);
-    const phoneNumber = '+34 600 000 000';
-    const modalCloseRef = useRef<HTMLButtonElement | null>(null);
-
-    const copyNumber = async () => {
-        try {
-            await navigator.clipboard.writeText(phoneNumber);
-            // pequeño feedback
-            alert('Número copiado al portapapeles!');
-        } catch (err) {
-            console.error('No se pudo copiar el número', err);
-        }
-    }
-
-    useEffect(() => {
-        const onKey = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') setOpenPhoneModal(false);
-        }
-        window.addEventListener('keydown', onKey);
-        return () => window.removeEventListener('keydown', onKey);
-    }, []);
-
-    useEffect(() => {
-        if (openPhoneModal) {
-            setTimeout(() => modalCloseRef.current?.focus(), 60);
-        }
-    }, [openPhoneModal]);
-
-    return (
-        <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-amber-100/30">
-            {/* Hero Section */}
-            <section className="relative px-4 py-8 sm:py-16 lg:py-24 sm:px-6 lg:px-8">
-                {/* Elementos decorativos de fondo */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    <div className="absolute -top-16 -left-16 w-64 h-64 sm:w-96 sm:h-96 sm:-top-24 sm:-left-24 bg-gradient-to-br from-amber-200/20 to-amber-300/10 rounded-full blur-3xl"></div>
-                    <div className="absolute -bottom-20 -right-20 w-64 h-64 sm:w-96 sm:h-96 sm:-bottom-32 sm:-right-32 bg-gradient-to-tl from-amber-300/15 to-amber-200/20 rounded-full blur-3xl"></div>
-                    <div className="absolute top-1/3 left-1/4 w-20 h-20 sm:w-32 sm:h-32 bg-amber-200/30 rounded-full blur-2xl"></div>
-                    <div className="absolute bottom-1/4 right-1/3 w-24 h-24 sm:w-40 sm:h-40 bg-amber-100/40 rounded-full blur-2xl"></div>
-                </div>
-
-                {/* Contenido principal del hero */}
-                <div className="relative max-w-7xl mx-auto">
-                    <div className="text-center space-y-6 sm:space-y-8">
-                        <div className="space-y-3 sm:space-y-4 ">
-                            <h1 className=" flex gap-2 items-center justify-center text-3xl sm:text-5xl lg:text-6xl font-serif text-amber-900 leading-tight">
-                                Nuestros <div className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-800">Servicios</div>
-                               
-                            </h1>
-                            <div className="w-16 h-1 sm:w-24 bg-gradient-to-r from-amber-400 to-amber-600 mx-auto rounded-full"></div>
-                        </div>
-                        
-                        {/* Descripción */}
-                        <p className="text-sm sm:text-lg lg:text-xl text-amber-800/90 max-w-3xl mx-auto leading-relaxed px-4">
-                            Descubre nuestra gama completa de tratamientos de belleza especializados en cejas y pestañas. 
-                            Cada servicio está diseñado para realzar tu mirada natural con técnicas profesionales y productos de alta calidad.
-                        </p>
-
-                        {/* CTA Buttons */}
-                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center pt-2 sm:pt-4">
-                            <button onClick={() => setOpenPhoneModal(true)} className="group bg-gradient-to-r from-amber-600 to-amber-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-out">
-                                <span className="flex items-center gap-2">
-                                    <PhoneIcon className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-pulse" />
-                                    Reservar Cita
-                                </span>
-                            </button>
-                            <button className="border-2 border-amber-600 text-amber-700 hover:bg-amber-600 hover:text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold text-base sm:text-lg transition-all duration-300 ease-out">
-                                Consultar Precios
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            {/* --- Call to Action Final (idéntico al de Home para coherencia) --- */}
+            {/* Asumo que bg-brand-secondary/50 es un fondo CLARO, por eso el texto lo pongo en negro. */}
+            <section className="text-center py-10 bg-brand-secondary/50 rounded-3xl mx-3 sm:mx-0 px-2">
+                {/* Usamos text-black para asegurar el contraste en el título */}
+                <h2 className="text-3xl font-serif text-black">¿Lista para brillar?</h2>
+                {/* Usamos text-black para el texto descriptivo */}
+                <p className="mt-4 text-black max-w-xl mx-auto">
+                    Tu momento de relax y belleza te está esperando. Reserva tu cita y déjate cuidar.
+                </p>
+                <button
+                    onClick={openModal} // Usamos la función openModal del hook
+                    className="text-brand-highlight mt-8 px-8 py-3 bg-brand-primary font-semibold rounded-full shadow-lg hover:bg-brand-primary/90 transition-transform transform hover:scale-105 duration-300 ease-in-out"
+                >
+                    Reservar Ahora
+                </button>
             </section>
 
-            {/* Servicios Section */}
-            <section className="relative px-4 py-8 sm:py-16 sm:px-6 lg:px-8">
-                <div className="max-w-6xl mx-auto">
-                    {/* Título de sección */}
-                    <div className="text-center mb-8 sm:mb-16">
-                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-amber-900 mb-3 sm:mb-4">
-                            Especialidades en Belleza
-                        </h2>
-                        <p className="text-base sm:text-lg text-amber-800/80 max-w-2xl mx-auto px-4">
-                            Explora nuestras categorías de servicios y encuentra el tratamiento perfecto para ti
-                        </p>
-                    </div>
-
-                    {/* Grid de servicios */}
-                    <div className="space-y-4 sm:space-y-6">
-                        {serviceCategories.map((cat, index) => (
-                            <ServiceAccordion key={index} {...cat} />
-                        ))}
-                    </div>
-
-                    {/* Call to Action Final */}
-                    <div className="text-center mt-8 sm:mt-16 p-6 sm:p-8 bg-gradient-to-r from-amber-100/50 to-amber-50/50 rounded-2xl sm:rounded-3xl border border-amber-200/50 mx-2 sm:mx-0">
-                        <h3 className="text-xl sm:text-2xl font-serif text-amber-900 mb-3 sm:mb-4">
-                            ¿Listo para realzar tu mirada?
-                        </h3>
-                        <p className="text-sm sm:text-base text-amber-800/80 mb-4 sm:mb-6 max-w-lg mx-auto px-2">
-                            Nuestro equipo de profesionales está aquí para ayudarte a conseguir el look que siempre has deseado.
-                        </p>
-                        <button onClick={() => setOpenPhoneModal(true)} className="bg-gradient-to-r from-amber-600 to-amber-700 text-white px-6 py-3 sm:px-10 sm:py-4 rounded-full font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-out">
-                            Contactar Ahora
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            {/* Modal de llamada (compartido con Home) */}
-            {openPhoneModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                    <div className="absolute inset-0 bg-black/40" onClick={() => setOpenPhoneModal(false)} aria-hidden></div>
-                    <div role="dialog" aria-modal="true" aria-labelledby="modal-title" className="relative bg-white rounded-2xl shadow-xl max-w-sm w-full p-6">
-                        <h3 id="modal-title" className="text-lg font-semibold text-amber-900">Reservar Cita</h3>
-                        <p className="mt-2 text-sm text-gray-600">Llámanos y reserva tu cita.</p>
-
-                        <div className="mt-4 flex flex-col gap-4 py-4 items-center justify-between p-3 border-t border-b border-gray-100">
-                            <div>
-                                <p className="text-sm text-gray-500">Teléfono</p>
-                                <p className="text-amber-900 font-medium text-xl">{phoneNumber}</p>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <a href={`tel:${phoneNumber.replace(/\s+/g, '')}`} className="inline-flex text-white items-center px-4 py-2 bg-amber-800 rounded-full shadow-lg hover:bg-amber-900 transition">
-                                    Llamar
-                                </a>
-                                <button onClick={copyNumber} className="inline-flex items-center px-4 py-2 bg-amber-50 text-amber-900 rounded-full shadow-lg border border-amber-100 hover:bg-amber-100 transition">
-                                    Copiar
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="mt-4 text-right">
-                            <button ref={modalCloseRef} onClick={() => setOpenPhoneModal(false)} className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800">Cerrar</button>
-                        </div>
-                    </div>
-                </div>
-            )}
+            {/* --- Modal de llamada (usamos el componente reutilizable) --- */}
+            <PhoneModal isOpen={isModalOpen} onClose={closeModal} closeRef={modalCloseRef} />
         </div>
     );
 };
