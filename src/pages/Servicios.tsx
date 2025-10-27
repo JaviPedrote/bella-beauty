@@ -101,10 +101,10 @@ export const Servicios = () => {
                                     </div>
 
                                     {/* Contenedor responsive para botón + precio */}
-                                    <div className="w-full flex justify-between flex-row sm:items-center sm:justify-end gap-3 mt-4 sm:mt-0 sm:pl-8">
+                                    <div className="w-full flex place-content-between justify-between flex-row sm:flex-col sm:items-end gap-3 mt-4 sm:mt-12 sm:pl-8 ">
 
                                         {/* Precio: en móvil aparece en línea; en sm+ se posiciona como badge en la esquina */}
-                                        <div className="text-lg font-bold text-brand-highlight whitespace-nowrap bg-brand-secondary/50 px-4 py-2 rounded-full sm:absolute sm:top-4 sm:right-4">
+                                        <div className="text-lg font-bold text-brand-highlight whitespace-nowrap bg-brand-secondary/50 px-4 py-2 rounded-full sm:mx-0 sm:absolute sm:top-4 sm:right-4 text-center flex items-center justify-center">
                                             {service.price}
                                         </div>
 
@@ -112,7 +112,7 @@ export const Servicios = () => {
                                             href={generateWameLink(service.name)}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-3 p-2 rounded-full hover:bg-gray-50 transition-colors"
+                                            className="inline-flex items-center sm:items-end justify-end gap-3 p-2 rounded-full hover:bg-gray-50 transition-colors"
                                             aria-label={`Contactar por WhatsApp: ${service.name}`}
                                         >
                                             {/* Icono dentro de un círculo */}
