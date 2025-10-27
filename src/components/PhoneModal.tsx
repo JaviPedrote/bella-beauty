@@ -11,7 +11,7 @@ interface PhoneModalProps {
 // El componente en sí. Recibe las props y las utiliza.
 export const PhoneModal = ({ isOpen, onClose, closeRef }: PhoneModalProps) => {
   // El número de teléfono puede estar aquí o pasarse como una prop si cambia.
-  const phoneNumber = '+34 600 000 000';
+  const phoneNumber = '+34616611801';
 
   // Función para copiar el número al portapapeles.
   const copyNumber = async () => {

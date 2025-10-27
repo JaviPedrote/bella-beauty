@@ -82,7 +82,7 @@ export const NavBar = () => {
                     <img
                         src="/Logo.png"
                         alt="Logo de Bella Beauty"
-                        className="max-h-60 items-center justify-center"
+                        className="logo-img h-14 sm:h-20 md:h-28 lg:h-36 object-contain"
                         onError={(e) => {
                             const target = e.currentTarget;
                             target.style.display = 'none';

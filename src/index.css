@@ -144,3 +144,17 @@ html, body, #root {
 .text-brand-highlight {
   color: var(--color-brand-highlight) !important;
 }
+
+/* Ajustes por orientación para el logo del header
+   - En portrait queremos un logo más grande para que no se vea diminuto
+   - En landscape reducimos la altura para evitar que ocupe demasiado espacio
+   Usamos !important para sobreescribir utilidades de Tailwind si fuese necesario. */
+.logo-img { height: 3.5rem; }
+
+@media (orientation: portrait) {
+  .logo-img { height: 5rem !important; }
+}
+
+@media (orientation: landscape) {
+  .logo-img { height: 3.5rem !important; }
+}
