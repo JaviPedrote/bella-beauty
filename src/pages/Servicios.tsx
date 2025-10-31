@@ -8,7 +8,7 @@ const serviciosData = [
         category: 'Tratamientos de uñas',
         description: 'Técnicas especializadas para definir, dar forma y realzar tus uñas, creando el marco perfecto para tu manicura.',
         items: [
-            { name: 'Uñas semipermanentes', price: '10€', details: 'Técnica para dejar tus uñas impecables y duraderas.' },
+            { name: 'Uñas semipermanentes', price: '10€', details: 'Técnica para dejar tus uñas impecables.' },
             { name: 'Uñas semipermanentes con refuerzo con 2 decoraciones', price: '12€', details: 'Técnica para dejar tus uñas impecables y duraderas con 2 decoraciones.' },
         ]
     },
