@@ -52,7 +52,7 @@ export const Home = () => {
               Realza tu mirada, <span className="block text-brand-highlight">siéntete radiante.</span>
             </h1>
             <p className="mt-4 max-w-xl text-brand-text-light">
-              Tratamientos profesionales de cejas y pestañas: técnicas precisas, resultados naturales y atención personalizada.
+              Tratamientos profesionales de uñas y pestañas: técnicas precisas, resultados naturales y atención personalizada.
             </p>
 
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
@@ -72,22 +72,21 @@ export const Home = () => {
       <section id="servicios-section" className="px-0 sm:px-6 lg:px-8 rounded-3xl mx-1 sm:mx-0">
         <h2 className="text-3xl font-bold xl font-serif text-center text-brand-highlight mb-4 mx-2">Servicios Estrella</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Tarjeta de Servicio: Cejas */}
+          {/* Tarjeta de Servicio: Uñas */}
           <div className="bg-white p-4 md:p-8 rounded-2xl shadow-lg border border-brand-secondary/50 transform transition-transform hover:scale-[1.02] duration-300">
             <h3 className="text-xl md:text-2xl font-serif text-brand-highlight mb-3 relative pb-2 after:block after:absolute after:bottom-0 after:left-0 after:w-1/4 after:h-1 after:bg-brand-accent after:rounded-full">
-              Cejas
+              Uñas
             </h3>
             <p className="text-sm md:text-base text-brand-text-light mt-4 leading-relaxed">
-              Descubre el arte de unas cejas perfectas. Nuestros tratamientos de diseño, microblading y laminado están pensados para realzar tu mirada de forma natural y elegante, creando un marco armonioso para tus ojos.
+              Descubre el arte de unas uñas perfectas. Ofrecemos uñas semipermanentes con diseños personalizados, refuerzos para mayor durabilidad y decoraciones únicas que reflejan tu estilo.
             </p>
             <ul className="mt-6 space-y-2 text-sm md:text-base text-brand-text-light list-disc list-inside">
-              <li>Diseño personalizado de cejas</li>
-              <li>Microblading y microshading</li>
-              <li>Laminado de cejas</li>
-              <li>Depilación y tinte</li>
+              <li>Diseño personalizado de uñas</li>
+              <li>Uñas semipermanentes</li>
+              <li>Refuerzos para mayor durabilidad</li>
+              <li>Decoraciones únicas</li>
             </ul>
           </div>
-
           {/* Tarjeta de Servicio: Pestañas */}
           <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-brand-secondary/50 transform transition-transform hover:scale-[1.02] duration-300">
             <h3 className="text-xl md:text-2xl font-serif text-brand-highlight mb-3 relative pb-2 after:block after:absolute after:bottom-0 after:left-0 after:w-1/4 after:h-1 after:bg-brand-accent after:rounded-full">
@@ -97,10 +96,8 @@ export const Home = () => {
               Consigue una mirada impactante con nuestras técnicas avanzadas de pestañas. Desde extensiones con volumen hasta un lifting natural, te ofrecemos soluciones para unas pestañas más largas, densas y curvadas.
             </p>
             <ul className="mt-6 space-y-2 text-sm md:text-base text-brand-text-light list-disc list-inside">
-              <li>Extensiones de pestañas (clásicas, volumen, híbridas)</li>
+              <li>Extensiones de pestañas</li>
               <li>Lifting de pestañas</li>
-              <li>Tinte de pestañas</li>
-              <li>Tratamientos de fortalecimiento</li>
             </ul>
           </div>
         </div>

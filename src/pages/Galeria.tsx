@@ -5,14 +5,10 @@ import { PhoneModal } from '../components/PhoneModal';
 // Es buena práctica tener esto fuera del componente o en un archivo de datos separado
 // para facilitar su mantenimiento.
 const galleryImages = [
-  { id: 1, src: '/cejasProfesional.webp', alt: 'Diseño de Cejas Profesional' },
-  { id: 2, src: '/extensionPestaña.webp', alt: 'Extensiones de Pestañas Volumen' },
-  { id: 3, src: '/Microblading.webp', alt: 'Microblading de Cejas' },
-  { id: 4, src: '/LiftingPestañasTinte.webp', alt: 'Lifting de Pestañas y Tinte' },
-  { id: 5, src: '/LaminadoCejas.webp', alt: 'Laminado de Cejas' },
-  { id: 6, src: '/ExtensionClasica.webp', alt: 'Extensiones de Pestañas Clásicas' },
-  { id: 7, src: '/DepilacionCejas.webp', alt: 'Depilación y Tinte de Cejas' },
-  { id: 8, src: '/NaturalesRealzadas.webp', alt: 'Pestañas Naturales Realzadas' },
+  { id: 1, src: '/LiftingDePestañas.webp', alt: 'Lifting de Pestañas' },
+  { id: 2, src: '/ExtensionDePestañas.webp', alt: 'Extensiones de Pestañas Volumen' },
+  { id: 3, src: '/UñasSemipermanentesBasicas.webp', alt: 'Uñas Semipermanentes' },
+  { id: 4, src: '/UñasSemipermanentesConRefuerzoCon2Decoraciones.webp', alt: 'Uñas Semipermanentes con Refuerzo y 2 Decoraciones' },
 ];
 
 export const Galeria = () => {

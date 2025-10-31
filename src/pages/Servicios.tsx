@@ -5,24 +5,19 @@ import { PhoneModal } from '../components/PhoneModal';
 // Datos de los servicios. Tenerlos en un array hace que sea muy fácil añadir o quitar servicios en el futuro.
 const serviciosData = [
     {
-        category: 'Tratamientos de Cejas',
-        description: 'Técnicas especializadas para definir, dar forma y realzar tus cejas, creando el marco perfecto para tu mirada.',
+        category: 'Tratamientos de uñas',
+        description: 'Técnicas especializadas para definir, dar forma y realzar tus uñas, creando el marco perfecto para tu manicura.',
         items: [
-            { name: 'Diseño Personalizado de Cejas', price: '20€', details: 'Análisis de visagismo, depilación con hilo/pinzas y definición.' },
-            { name: 'Microblading', price: '180€', details: 'Técnica pelo a pelo para un resultado hiperrealista y natural.' },
-            { name: 'Microshading', price: '200€', details: 'Efecto sombreado o maquillaje para cejas más densas y definidas.' },
-            { name: 'Laminado de Cejas', price: '45€', details: 'Alisa y fija el vello para unas cejas peinadas y con más volumen.' },
-            { name: 'Tinte de Cejas con Henna', price: '25€', details: 'Coloración natural para dar intensidad y rellenar pequeños huecos.' }
+            { name: 'Uñas semipermanentes', price: '10€', details: 'Técnica para dejar tus uñas impecables y duraderas.' },
+            { name: 'Uñas semipermanentes con refuerzo con 2 decoraciones', price: '12€', details: 'Técnica para dejar tus uñas impecables y duraderas con 2 decoraciones.' },
         ]
     },
     {
         category: 'Tratamientos de Pestañas',
         description: 'Soluciones para conseguir unas pestañas más largas, curvadas y con volumen, para una mirada abierta e impactante.',
         items: [
-            { name: 'Extensiones de Pestañas Clásicas', price: '60€', details: 'Técnica pelo a pelo para un efecto de "rimel" natural.' },
-            { name: 'Extensiones de Pestañas Volumen Ruso', price: '80€', details: 'Abanicos de extensiones para un volumen espectacular y denso.' },
-            { name: 'Lifting de Pestañas + Tinte', price: '50€', details: 'Eleva y curva tus pestañas naturales desde la raíz. Incluye tinte.' },
-            { name: 'Tinte de Pestañas', price: '15€', details: 'Oscurece tus pestañas para dar profundidad a la mirada sin maquillaje.' }
+            { name: 'Extensiones de Pestañas', price: '15€', details: 'Técnica para alargar y dar volumen a tus pestañas.' },
+            { name: 'Lifting de Pestañas + Tinte', price: '15€', details: 'Eleva y curva tus pestañas naturales desde la raíz. Incluye tinte.' },
         ]
     }
 ];
