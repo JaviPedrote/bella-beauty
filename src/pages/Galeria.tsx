@@ -24,7 +24,7 @@ export const Galeria = () => {
           Nuestra Galería
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-brand-text-light">
-          Inspírate con algunos de nuestros trabajos más recientes de cejas y pestañas.
+          Inspírate con algunos de nuestros trabajos más recientes de uñas y pestañas.
           Resultados que hablan por sí mismos.
         </p>
       </header>

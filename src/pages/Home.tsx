@@ -121,7 +121,7 @@ export const Home = () => {
             <div className="flex items-center mb-3">
               <div className="flex text-brand-highlight"><StarIcon /><StarIcon /><StarIcon /><StarIcon /><StarIcon /></div>
             </div>
-            <p className="text-brand-text-light italic leading-relaxed">"¡Un trato increíble y unos resultados espectaculares! María es una gran profesional. Volveré sin duda, el diseño de cejas ha transformado mi mirada por completo."</p>
+            <p className="text-brand-text-light italic leading-relaxed">"¡Un trato increíble y unos resultados espectaculares! Es una gran profesional. Volveré sin duda, el diseño de uñas ha transformado mis manos por completo."</p>
             <p className="text-right font-semibold text-brand-highlight mt-4">- Lucía G.</p>
           </div>
           {/* Testimonio */}
