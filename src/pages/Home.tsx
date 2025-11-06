@@ -95,7 +95,7 @@ export const Home = () => {
             <p className="text-sm md:text-base text-brand-text-light mt-4 leading-relaxed">
               Consigue una mirada impactante con nuestras técnicas avanzadas de pestañas. Desde extensiones con volumen hasta un lifting natural, te ofrecemos soluciones para unas pestañas más largas, densas y curvadas.
             </p>
-            <ul className="mt-6 space-y-2 text-sm md:text-base text-brand-text-light list-disc list-inside">
+            <ul className="mt-5 space-y-2 text-sm md:text-base text-brand-text-light list-disc list-inside">
               <li>Extensiones de pestañas</li>
               <li>Lifting de pestañas</li>
             </ul>
