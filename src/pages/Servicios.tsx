@@ -8,6 +8,7 @@ const serviciosData = [
         category: 'Tratamientos de uñas',
         description: 'Técnicas especializadas para definir, dar forma y realzar tus uñas, creando el marco perfecto para tu manicura.',
         items: [
+            // Mejoprame la definición de cada servicio
             { name: 'Uñas semipermanentes', price: '12€', details: 'Técnica para dejar tus uñas impecables.' },
             { name: 'Uñas semipermanentes con refuerzo con 2 decoraciones', price: '15€', details: 'Técnica para dejar tus uñas impecables y duraderas con 2 decoraciones.' },
             { name: 'Técnica gel Express', price: '15€', details: 'Técnica rápida para uñas de gel que proporciona un acabado perfecto en poco tiempo.' },
@@ -19,7 +20,8 @@ const serviciosData = [
         category: 'Tratamientos de Pestañas',
         description: 'Soluciones para conseguir unas pestañas más largas, curvadas y con volumen, para una mirada abierta e impactante.',
         items: [
-            { name: 'Extensiones de Pestañas', price: '15€', details: 'Técnica para alargar y dar volumen a tus pestañas.' },
+            { name: 'Extensiones de Pestañas', price: '20€', details: 'Técnica para alargar y dar volumen a tus pestañas.' },
+            { name: 'Lifting de Pestañas', price: '12€', details: 'Eleva y curva tus pestañas naturales desde la raíz.' },
             { name: 'Lifting de Pestañas + Tinte', price: '15€', details: 'Eleva y curva tus pestañas naturales desde la raíz. Incluye tinte.' },
         ]
     },
