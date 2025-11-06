@@ -111,29 +111,7 @@ export const Home = () => {
           </Link>
         </div>
       </section>
-
-      {/* --- Sección de Testimonios --- */}
-      {/* <section className="py-4 bg-brand-background rounded-xl">
-        <h2 className="text-3xl font-serif text-center text-brand-highlight mb-6 mx-2 font-bold">Lo que dicen nuestras clientas</h2>
-        <div className="max-w-3xl mx-auto space-y-6 px-4 sm:px-0"> */}
-          {/* Testimonio */}
-          {/* <div className="bg-white p-6 rounded-2xl shadow-md border border-brand-secondary/40">
-            <div className="flex items-center mb-3">
-              <div className="flex text-brand-highlight"><StarIcon /><StarIcon /><StarIcon /><StarIcon /><StarIcon /></div>
-            </div>
-            <p className="text-brand-text-light italic leading-relaxed">"¡Un trato increíble y unos resultados espectaculares! Es una gran profesional. Volveré sin duda, el diseño de uñas ha transformado mis manos por completo."</p>
-            <p className="text-right font-semibold text-brand-highlight mt-4">- Lucía G.</p>
-          </div> */}
-          {/* Testimonio */}
-          {/* <div className="bg-white p-6 rounded-2xl shadow-md border border-brand-secondary/40">
-            <div className="flex items-center mb-3">
-              <div className="flex text-brand-highlight"><StarIcon /><StarIcon /><StarIcon /><StarIcon /><StarIcon /></div>
-            </div>
-            <p className="text-brand-text-light italic leading-relaxed">"El lifting de pestañas es lo mejor que me he hecho. Salí con una mirada súper abierta y fresca. El ambiente es súper acogedor y relajante."</p>
-            <p className="text-right font-semibold text-brand-highlight mt-4">- Ana M.</p>
-          </div>
-        </div> */}
-      {/* </section> */}
+  
 
       {/* --- Call to Action Final --- */}
       <section className="text-center py-8 bg-brand-secondary/50 rounded-3xl mx-3 sm:mx-0 px-2">
