@@ -140,7 +140,7 @@ export const Galeria = () => {
             >
               <div className="relative max-w-4xl w-full">
                 <button
-                  className="absolute top-2 right-2 z-20 bg-white/90 rounded-full p-2 shadow"
+                  className="absolute top-2 right-2 z-20 text-black bg-white/90 rounded-full p-2 shadow"
                   onClick={() => setSelected(null)}
                   aria-label="Cerrar imagen"
                 >
@@ -152,7 +152,7 @@ export const Galeria = () => {
                   className="w-full h-auto rounded-lg shadow-lg"
                 />
                 <div className="mt-2 bg-white p-3 rounded-b-lg text-center">
-                  <p className="font-semibold">{img.title}</p>
+                  <p className="font-semibold text-brand-highlight">{img.title}</p>
                   <p className="text-sm text-gray-600">
                     {isAntes(img.src) ? "Antes" : "Después / Resultado"}
                   </p>
