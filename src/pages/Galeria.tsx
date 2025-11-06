@@ -102,7 +102,7 @@ export const Galeria = () => {
         </p>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <main className="max-w-6xl mx-auto px-0 sm:px-6 lg:px-8">
         <section aria-labelledby="gallery-heading">
           <h2 id="gallery-heading" className="sr-only">
             Imágenes de trabajos realizados
