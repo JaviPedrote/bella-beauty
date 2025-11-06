@@ -18,56 +18,70 @@ const galleryImages = [
   },
   {
     id: 3,
+    src: "/Lifting3.webp",
+    alt: "Lifting de pestañas (variante 2)",
+    title: "Lifting de Pestañas",
+  },
+  {
+    id: 4,
+    src: "/Lifting4.webp",
+    alt: "Lifting de pestañas (variante 3)",
+    title: "Lifting de Pestañas",
+  },
+  {
+    id: 5,
     src: "/PedicuraEsmaltado.webp",
     alt: "Pedicura - Esmaltado",
     title: "Pedicura y Esmaltado",
   },
   {
-    id: 4,
+    id: 6,
     src: "/SemiPermanenteRefuerzo.jpeg",
     alt: "Semipermanente con refuerzo",
     title: "Semipermanente - Refuerzo",
   },
   {
-    id: 5,
+    id: 7,
     src: "/SemiPermanenteRefuerzo1.jpeg",
     alt: "Semipermanente con refuerzo (variante)",
     title: "Semipermanente - Refuerzo",
   },
   {
-    id: 6,
+    id: 8,
     src: "/SemiPermanenteRefuerzoAntes.jpeg",
     alt: "Antes - semipermanente refuerzo",
-    title: "Semipermanente - Antes",
-  },
-   {
-    id: 7,
-    src: "/SemiPermanenteRefuerzoDesp2.jpeg",
-    alt: "Después - semipermanente refuerzo (variante)",
-    title: "Semipermanente - Después",
-  },
-  {
-    id: 8,
-    src: "/SemiPermanenteRefuerzoAnts.jpeg",
-    alt: "Antes (posible typo) - semipermanente",
-    title: "Semipermanente - Antes",
+    title: "Semipermanente",
   },
   {
     id: 9,
-    src: "/SemiPermanenteRefuerzoDesp.jpeg",
-    alt: "Después - semipermanente refuerzo",
-    title: "Semipermanente - Después",
+    src: "/SemiPermanenteRefuerzoDesp2.jpeg",
+    alt: "Después - semipermanente refuerzo (variante)",
+    title: "Semipermanente",
   },
   {
     id: 10,
+    src: "/SemiPermanenteRefuerzoAnts.jpeg",
+    alt: "Antes (posible typo) - semipermanente",
+    title: "Semipermanente",
+  },
+  {
+    id: 11,
+    src: "/SemiPermanenteRefuerzoDesp.jpeg",
+    alt: "Después - semipermanente refuerzo",
+    title: "Semipermanente",
+  },
+  {
+    id: 12,
     src: "/SemipermanRefuerdDesp.jpeg",
     alt: "Después - semipermanente (nombre variante)",
-    title: "Semipermanente - Después",
+    title: "Semipermanente",
   },
 ];
 
-// Helper para detectar si la imagen es un "antes" (nombres y variantes)
-const isAntes = (src: string) => /antes|ants/i.test(src);
+// Helpers para detectar si la imagen es "antes" o "después" usando el texto del alt
+const hasAntes = (alt: string) => /\bantes\b|\bants\b/i.test(alt);
+const hasDespues = (alt: string) =>
+  /desp|despu|despu[eé]s|despues|después/i.test(alt);
 
 export const Galeria = () => {
   // Hook para el modal de reserva
@@ -100,10 +114,15 @@ export const Galeria = () => {
                 key={image.id}
                 className="relative group rounded-xl shadow-md overflow-hidden bg-white"
               >
-                {/* Badge "ANTES" si corresponde */}
-                {isAntes(image.src) && (
+                {/* Badges: mostrar solo si el alt contiene 'antes' o 'después' */}
+                {hasAntes(image.alt) && (
                   <span className="absolute z-10 top-3 left-3 bg-white/90 text-red-600 font-bold text-xs px-2 py-1 rounded-full shadow">
                     ANTES
+                  </span>
+                )}
+                {hasDespues(image.alt) && (
+                  <span className="absolute z-10 top-3 left-3 bg-white/90 text-red-600 font-bold text-xs px-2 py-1 rounded-full shadow">
+                    DESPUÉS
                   </span>
                 )}
                 <button
@@ -152,9 +171,15 @@ export const Galeria = () => {
                   className="w-full h-auto rounded-lg shadow-lg"
                 />
                 <div className="mt-2 bg-white p-3 rounded-b-lg text-center">
-                  <p className="font-semibold text-brand-highlight">{img.title}</p>
+                  <p className="font-semibold text-brand-highlight">
+                    {img.title}
+                  </p>
                   <p className="text-sm text-gray-600">
-                    {isAntes(img.src) ? "Antes" : "Después / Resultado"}
+                    {hasAntes(img.alt)
+                      ? "Antes"
+                      : hasDespues(img.alt)
+                      ? "Después / Resultado"
+                      : "Resultado"}
                   </p>
                 </div>
               </div>
