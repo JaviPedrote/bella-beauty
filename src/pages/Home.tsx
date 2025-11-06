@@ -8,18 +8,6 @@ import { usePhoneModal } from '../hooks/useOpenModal';
 export const Home = () => {
   const { isModalOpen, openModal, closeModal, modalCloseRef } = usePhoneModal();
 
-  const StarIcon = () => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className="w-5 h-5" // He quitado el color de aquí para que sea más flexible
-    >
-      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
-    </svg>
-  );
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -101,6 +89,7 @@ export const Home = () => {
             </ul>
           </div>
         </div>
+        {/* bella-beauty-rodriguez.vercel.app */}
         {/* Enlace a la página completa de servicios */}
         <div className="text-center mt-10">
           <Link to="/servicios" className="text-base pb-4 font-semibold text-brand-highlight hover:underline flex items-center justify-center gap-2">
