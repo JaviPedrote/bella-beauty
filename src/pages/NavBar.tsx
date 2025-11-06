@@ -77,8 +77,8 @@ export const NavBar = () => {
         <div className="min-h-screen flex flex-col bg-[#FBF7F4]">
             
             {/* Encabezado con logo y nombre, posicionado a la izquierda */}
-            <header className="w-full py-3 px-4 sm:px-6 sticky top-0 z-10 bg-[#FBF7F4]/80 backdrop-blur-xl" style={{ borderBottom: '1px solid #EADED7' }}>
-                <div className="flex items-center justify-center gap-3">
+            <header className="w-full py-3 px-4 sm:px-6 sticky top-0 z-20 bg-[#FBF7F4]/80 backdrop-blur-xl" style={{ borderBottom: '1px solid #EADED7' }}>
+                <div className="flex items-center justify-center gap-3 z-50">
                     <img
                         src="/Logo.png"
                         alt="Logo de Bella Beauty"
