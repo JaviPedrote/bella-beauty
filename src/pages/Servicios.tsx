@@ -10,6 +10,8 @@ const serviciosData = [
         items: [
             { name: 'Uñas semipermanentes', price: '10€', details: 'Técnica para dejar tus uñas impecables.' },
             { name: 'Uñas semipermanentes con refuerzo con 2 decoraciones', price: '12€', details: 'Técnica para dejar tus uñas impecables y duraderas con 2 decoraciones.' },
+            { name: 'Pedicura', price: '10€', details: 'Cuidado y embellecimiento de tus pies.' },
+            { name: 'Pedicura con esmaltado', price: '15€', details: 'Cuidado y embellecimiento de tus pies con esmaltado.' },
         ]
     },
     {
@@ -19,7 +21,7 @@ const serviciosData = [
             { name: 'Extensiones de Pestañas', price: '15€', details: 'Técnica para alargar y dar volumen a tus pestañas.' },
             { name: 'Lifting de Pestañas + Tinte', price: '15€', details: 'Eleva y curva tus pestañas naturales desde la raíz. Incluye tinte.' },
         ]
-    }
+    },
 ];
 
 const WHATSAPP_NUMBER = '34616611801';
