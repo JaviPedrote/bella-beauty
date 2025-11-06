@@ -8,8 +8,9 @@ const serviciosData = [
         category: 'Tratamientos de uñas',
         description: 'Técnicas especializadas para definir, dar forma y realzar tus uñas, creando el marco perfecto para tu manicura.',
         items: [
-            { name: 'Uñas semipermanentes', price: '10€', details: 'Técnica para dejar tus uñas impecables.' },
-            { name: 'Uñas semipermanentes con refuerzo con 2 decoraciones', price: '12€', details: 'Técnica para dejar tus uñas impecables y duraderas con 2 decoraciones.' },
+            { name: 'Uñas semipermanentes', price: '12€', details: 'Técnica para dejar tus uñas impecables.' },
+            { name: 'Uñas semipermanentes con refuerzo con 2 decoraciones', price: '15€', details: 'Técnica para dejar tus uñas impecables y duraderas con 2 decoraciones.' },
+            { name: 'Técnica gel Express', price: '15€', details: 'Técnica rápida para uñas de gel que proporciona un acabado perfecto en poco tiempo.' },
             { name: 'Pedicura', price: '10€', details: 'Cuidado y embellecimiento de tus pies.' },
             { name: 'Pedicura con esmaltado', price: '15€', details: 'Cuidado y embellecimiento de tus pies con esmaltado.' },
         ]
